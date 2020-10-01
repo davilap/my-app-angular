@@ -1,0 +1,51 @@
+app-custom-modal {
+  display: none;
+
+  .jw-modal {
+    /* modal container fixed across whole screen */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 700px;
+    margin: 0 auto;
+    z-index: 1000;
+    overflow: auto;
+
+    .jw-modal-body {
+      padding: 20px;
+      background: #fff;
+      margin: 40px;
+      border-radius: 10px;
+    }
+  }
+
+  .jw-modal-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    background-color: #000;
+    opacity: 0.75;
+
+    z-index: 900;
+  }
+
+  @media (max-width: 720px) {
+    .jw-modal {
+      width: 85%;
+
+      .jw-modal-body {
+        padding: 15px;
+        margin: 25px;
+      }
+    }
+  }
+}
+
+body.jw-modal-open {
+  overflow: hidden;
+}

@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap");
+
+$font-family-base: "Open Sans", sans-serif !default;
+
+$body-color: #696969 !default;
+
+$text-muted: #aaaaaa !default;
+
+$success: #FFBE6A !default;
+
+$primary: #FFBE6A !default;
+$warning: #FF9D1A !default;
+
+$input-btn-padding-x: 1.9rem !default;
+$input-btn-padding-y: 0.575rem !default;
+
+$input-btn-padding-x-lg: 2rem !default;
+$input-btn-padding-y-lg: 0.7rem !default;
+
+$input-height: auto !default;
+
+$input-padding-y: 0px !default;
+$input-padding-x: 0 !default;
+
+$font-weight-lighter: 300 !default;
+$font-weight-light: 400 !default;
+$font-weight-normal: 600 !default;
+$font-weight-bold: 700 !default;
+$font-weight-bolder: bolder !default;
+
+$font-weight-base: $font-weight-light !default;
+
+$input-focus-box-shadow: none !default;
+
+$input-placeholder-color: #c2c2c2 !default;
+
+@import "../node_modules/bootstrap/scss/bootstrap";

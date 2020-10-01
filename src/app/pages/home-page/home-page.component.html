@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="d-flex align-items-center justify-content-between my-5">
+        <h3 class="m-0">Productos</h3>
+        <button class="btn btn-primary" (click)="create()">Adicionar producto</button>
+      </div>
+
+      <div class="d-flex mb-4">
+        <div class="bg-primary rounded-pill text-white d-flex align-items-center px-3 py-2 mr-3"
+          *ngFor="let item of store; let i = index">
+          {{item.category.name}} <span class="badge badge-warning text-white ml-2">{{item.total}}</span>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="w-100 table">
+          <thead>
+            <th>#ID</th>
+            <th>Descripción</th>
+            <th>Categoría</th>
+            <th>Operaciones</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of list; let i = index">
+              <td>{{item.id}}</td>
+              <td>{{item.description}}</td>
+              <td>{{item.category.name}}</td>
+              <td>
+                <a class="text-success" (click)="edit(i, item)">
+                  <i class="fas fa-times"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-custom-modal id="popup-product">
+  <div class="row">
+    <div class="col-xl-12">
+
+      <div class="d-flex align-items-center justify-content-between mb-4">
+        <h3 class="m-0">{{popupTitle}}</h3>
+        <a class="text-success mr-1" (click)="closeModal('popup-product');">
+          <i class="fa-lg fas fa-times"></i>
+        </a>
+      </div>
+
+      <form class="px-3" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="form-group border rounded p-3">
+              <label for="description" class="font-weight-normal">Nombre</label>
+              <input type="text" formControlName="description" class="form-control" placeholder="Nombre del producto"
+                [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
+              <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                <div *ngIf="f.description.errors.required">El nombre es requerido</div>
+              </div>
+            </div>
+            <div class="form-group border rounded p-3">
+              <label for="category" class="font-weight-normal">Categoría</label>
+              <select formControlName="category" class="form-control">
+                <option [ngValue]="item.id" *ngFor="let item of category">
+                  {{item.name}}
+                </option>
+              </select>
+              <div *ngIf="submitted && f.category.errors" class="invalid-feedback d-block">
+                <div *ngIf="f.category.errors.required">Debe seleccionar una categoría</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <button [disabled]="loading" class="btn btn-primary mb-4">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          GUARDAR
+        </button>
+
+        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+      </form>
+
+    </div>
+  </div>
+</app-custom-modal>
