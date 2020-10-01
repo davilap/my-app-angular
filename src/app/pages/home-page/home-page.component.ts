@@ -20,7 +20,6 @@ export class HomePageComponent implements OnInit {
 
   productForm: FormGroup;
 
-  currentProductId: number;
   currentIndex: number = -1;
   error = '';
   loading = false;
@@ -42,13 +41,7 @@ export class HomePageComponent implements OnInit {
         }
       );
 
-    this.productService.find()
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.store = data;
-        }
-      );
+    this.loadSummary();
 
     this.productForm = this.formBuilder.group({
       description: ['', Validators.required],
@@ -75,6 +68,16 @@ export class HomePageComponent implements OnInit {
     this.f.category.setValue('');
   }
 
+  loadSummary() {
+    this.productService.find()
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.store = data;
+        }
+      );
+  }
+
   onSubmit() {
     this.submitted = true;
 
@@ -91,6 +94,8 @@ export class HomePageComponent implements OnInit {
           this.list.unshift(data);
           this.loading = false;
           this.closeModal('popup-product');
+
+          this.loadSummary();
         }, (error: string) => {
           this.error = error;
           this.loading = false;
@@ -98,9 +103,18 @@ export class HomePageComponent implements OnInit {
       );
   }
 
-  onDelete(item: Product){
-    this.currentProductId = item.id;
-    
+  delete(i: number, item: Product) {
+    this.productService.delete(item.id)
+      .pipe(first())
+      .subscribe(
+        () => {
+          this.list.splice(i, 1);
+          
+          this.loadSummary();
+        }, (error: string) => {
+          this.error = error;
+        }
+      );
   }
 
   openModal(id: string) {
